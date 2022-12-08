@@ -6,7 +6,10 @@
     </head>
     <body>
         <?php
-        echo "Bem vindo ADM!";
+        require './core/ConfigController.php';
+        
+        $home = new ConfigController();
+        $home->carregar();
         ?>
     </body>
 </html>
