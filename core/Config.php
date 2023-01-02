@@ -1,5 +1,6 @@
 <?php
 
+namespace Core;
 /**
  * Description of Config
  *
@@ -7,10 +8,11 @@
  */
 abstract class Config
 {
-    protected function configAdm() {
+    protected function configAdm()
+    {
         define('URL', 'http://localhost/celke/');
         define('URLADM', 'http://localhost/celke/adm/');
-        
+
         define('CONTROLLER', 'Login');
         define('METODO', 'access');
         define('CONTROLLERERRO', 'Erro');

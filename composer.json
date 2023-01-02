@@ -1,0 +1,16 @@
+{
+    "description": "Projeto ADM Tutorial Celke",
+    "authors": [
+        {
+            "name": "Gabriel Martins",
+            "email": "gabrielmatheus209@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core",
+            "App\\": "app"
+        }
+    },
+    "require": {}
+}

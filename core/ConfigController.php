@@ -1,12 +1,11 @@
 <?php
 
+namespace Core;
 /**
  * Description of ConfigController
  *
  * @author Gabriel Matheus
  */
-
-require './core/Config.php';
 
 class ConfigController extends Config
 {
@@ -16,6 +15,7 @@ class ConfigController extends Config
     private string $urlController;
     private string $urlMetodo;
     private string $urlParamentro;
+    private string $classe;
 
     public function __construct()
     {
@@ -56,12 +56,11 @@ class ConfigController extends Config
 
     public function carregar()
     {
-        require './app/adms/Controllers/Login.php';
-        require './app/adms/Controllers/Usuarios.php';
-        $login = new Login();
-        $login->access();
-
-        $usuarios = new Usuarios();
-        $usuarios->list();
+        echo "Carregar as páginas<br>";
+        $this->urlController = ucwords($this->urlController);
+        echo "Controller corrigida: {$this->urlController}<br>";
+        $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
+        $classCarregar = new $this->classe();
+        $classCarregar->{$this->urlMetodo}();
     }
 }
