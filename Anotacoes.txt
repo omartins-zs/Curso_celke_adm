@@ -1,0 +1,48 @@
+Comandos Usados
+
+
+composer update 
+
+composer dumpautoload
+
+Explicativo de Comandos do Composer em Portugues
+
+Options:
+-h ou --help: Exibe a mensagem de ajuda
+-q ou --quiet: Não exibe nenhuma mensagem
+-V ou --version: Exibe a versão do aplicativo Composer
+--ansi: Força a saída no formato ANSI
+--no-ansi: Desabilita a saída no formato ANSI
+-n ou --no-interaction: Não faz perguntas interativas
+--profile: Exibe informações de tempo de execução e uso de memória
+--no-plugins: Desabilita os plugins
+-d ou --working-dir=DIRETÓRIO: Se especificado, usa o diretório dado como diretório de trabalho
+-v ou -vv ou -vvv ou --verbose: Aumenta o nível de detalhamento das mensagens: 1 para saída normal, 2 para saída mais detalhada e 3 para depuração
+
+Commands:
+`about`: Exibe informações resumidas sobre o Composer
+`archive`: Cria um arquivo compactado (arquivo "zip") do pacote Composer atual
+`browse`: Abre o URL do repositório ou página inicial do pacote em seu navegador
+`clear`-cache ou clearcache: Limpa o cache interno de pacotes do Composer
+`config`: Define opções de configuração
+`create`-project: Cria um novo projeto a partir de um pacote em um diretório especificado
+`depends`: Mostra quais pacotes fazem com que um pacote específico seja instalado
+`diagnose`: Realiza um diagnóstico no sistema para identificar erros comuns
+`dump`-autoload ou dumpautoload: Atualiza o arquivo "autoload" do Composer, que carrega automaticamente todas as classes do seu projeto
+`exec`: Executa um binário ou script gerenciado pelo Composer
+`global`: Permite executar comandos no diretório global do Composer ($COMPOSER_HOME)
+`help`: Exibe ajuda para um comando específico
+`home`: Abre o URL do repositório ou página inicial do pacote em seu navegador
+`info`: Exibe informações sobre os pacotes instalados
+`init`: Cria um arquivo composer.json básico no diretório atual
+`install`: Instala as dependências do projeto a partir do arquivo composer.lock, se ele existir, ou do arquivo composer.json
+`licenses`: Exibe informações sobre as licenças das dependências
+`list`: Lista todos os comandos disponíveis
+`outdated`: Mostra uma lista de pacotes instalados que possuem atualizações disponíveis, incluindo suas versões mais recentes
+`prohibits`: Mostra quais pacotes impedem a instalação de um pacote específico
+`remove`: Remove um pacote das seções "require" ou "require-dev" do arquivo composer.json
+`require`: Adiciona pacotes necessários ao arquivo composer.json e os instala
+`run`-script: Executa os scripts definidos no arquivo composer.json
+`search`: Procura por pacotes
+`self`-update ou selfupdate: Atualiza o arquivo
+
