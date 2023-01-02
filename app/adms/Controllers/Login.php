@@ -1,5 +1,7 @@
 <?php
 
+namespace App\adms\Controllers;
+
 /**
  * Description of Login
  *
