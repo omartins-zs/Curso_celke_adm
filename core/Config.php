@@ -16,5 +16,7 @@ abstract class Config
         define('CONTROLLER', 'Login');
         define('METODO', 'access');
         define('CONTROLLERERRO', 'Erro');
+
+        define('EMAILADM', 'gabrielmartinsdev@gmail.com');
     }
 }
