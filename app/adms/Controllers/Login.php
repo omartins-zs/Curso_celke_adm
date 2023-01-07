@@ -15,7 +15,8 @@ class Login
 
         $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (!empty($this->dadosForm['SendLogin'])) {
-            var_dump($this->dadosForm);
+            $valLogin= new \App\adms\Models\AdmsLogin();
+            $valLogin->login($this->dadosForm);
             $this->dados['form'] = $this->dadosForm;
         }
         //$this->dados = [];
