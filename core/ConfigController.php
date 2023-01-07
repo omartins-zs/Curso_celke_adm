@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 /**
  * Description of ConfigController
  *
@@ -16,6 +17,10 @@ class ConfigController extends Config
     private string $urlMetodo;
     private string $urlParamentro;
     private string $classe;
+    private string $slugController;
+    private string $slugMetodo;
+    private string $urlLimpa;
+    private array $format;
 
     public function __construct()
     {
@@ -23,18 +28,21 @@ class ConfigController extends Config
         if (!empty(filter_input(INPUT_GET, 'url', FILTER_DEFAULT))) {
             $this->url = filter_input(INPUT_GET, 'url', FILTER_DEFAULT);
             echo "Página que o usuário quer acessar: " . $this->url . "<br>";
+            $this->url = $this->limparUrl($this->url);
+            echo "Url Limpa: " . $this->url . "<br>";
             $this->urlConjunto = explode("/", $this->url);
             var_dump($this->urlConjunto);
             if (isset($this->urlConjunto[0])) {
-                $this->urlController = $this->urlConjunto[0];
+                $this->urlController = $this->slugController($this->urlConjunto[0]);
             } else {
-                $this->urlController = CONTROLLER;
+                $this->urlController = $this->slugController(CONTROLLER);
             }
 
             if (isset($this->urlConjunto[1])) {
-                $this->urlMetodo = $this->urlConjunto[1];
+                $this->urlMetodo = $this->slugMetodo($this->urlConjunto[1]);
             } else {
-                $this->urlMetodo = METODO;
+                $this->urlController = $this->slugController(CONTROLLER);
+                $this->urlMetodo = $this->slugMetodo(METODO);
             }
 
             if (isset($this->urlConjunto[2])) {
@@ -44,8 +52,8 @@ class ConfigController extends Config
             }
         } else {
             echo "Criar a página default<br>";
-            $this->urlController = CONTROLLER;
-            $this->urlMetodo = METODO;
+            $this->urlController = $this->slugController(CONTROLLER);
+            $this->urlMetodo = $this->slugMetodo(METODO);
             $this->urlParamentro = "";
         }
 
@@ -54,11 +62,46 @@ class ConfigController extends Config
         echo "Paramentro: {$this->urlParamentro} <br>";
     }
 
+    private function slugController($slugController)
+    {
+        //Converter para minusculo
+        $this->slugController = strtolower($slugController);
+        //Converter o traço para espaço em braco
+        $this->slugController = str_replace("-", " ", $this->slugController);
+        //Converter a primeira letra de cada palavra para maiusculo
+        $this->slugController = ucwords($this->slugController);
+        //Retirar o espaço em braco
+        $this->slugController = str_replace(" ", "", $this->slugController);
+
+        return $this->slugController;
+    }
+
+    private function slugMetodo($slugMetodo)
+    {
+        $this->slugMetodo = $this->slugController($slugMetodo);
+        //Converter para minusculo a primeira letra
+        $this->slugMetodo = lcfirst($this->slugMetodo);
+
+        return $this->slugMetodo;
+    }
+
+    private function limparUrl($url)
+    {
+        //Eliminar as tags
+        $this->urlLimpa = strip_tags($url);
+        //Eliminar espaços em branco
+        $this->urlLimpa = trim($this->urlLimpa);
+        //Eliminar a barra no final da URL
+        $this->urlLimpa = rtrim($this->urlLimpa, "/");
+        $this->format['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]?;:.,\\\'<>°ºª ';
+        $this->format['b'] = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr--------------------------------';
+        $this->urlLimpa = strtr(utf8_decode($this->urlLimpa), utf8_decode($this->format['a']), $this->format['b']);
+
+        return $this->urlLimpa;
+    }
+
     public function carregar()
     {
-        echo "Carregar as páginas<br>";
-        $this->urlController = ucwords($this->urlController);
-        echo "Controller corrigida: {$this->urlController}<br>";
         $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
         $classCarregar = new $this->classe();
         $classCarregar->{$this->urlMetodo}();
