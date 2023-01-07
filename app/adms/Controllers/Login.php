@@ -9,11 +9,16 @@ namespace App\adms\Controllers;
 class Login
 {
     private $dados;
-    
+    private $dadosForm;
+
     public function access() {
-        
-        $this->dados = [];
-        
+
+        $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (!empty($this->dadosForm['SendLogin'])) {
+            var_dump($this->dadosForm);
+            $this->dados['form'] = $this->dadosForm;
+        }
+        //$this->dados = [];
         $carregarView = new \Core\ConfigView("adms/Views/login/access", $this->dados);
         $carregarView->renderizar();
     }
