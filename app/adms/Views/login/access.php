@@ -1,3 +1,19 @@
 <?php
+if (isset($this->dados['form'])) {
+    $valorForm = $this->dados['form'];
+}
+?>
+<h1>Área Restrita</h1>
+<form method="POST" action="">
+    <label>Usuário</label>
+    <input name="user" type="text" id="user" placeholder="Digite o usuário" value="<?php
+    if (isset($valorForm['user'])) {
+        echo $valorForm['user'];
+    }
+    ?>"><br><br>
 
-echo "Tela que deve ser apresentada para o usuário<br>";
+    <label>Senha</label>
+    <input name="password" type="password" id="password" placeholder="Digite a senha"><br><br>
+
+    <input name="SendLogin" type="submit" value="Acessar">
+</form>
