@@ -1,7 +1,6 @@
 <?php
 
 namespace App\adms\Controllers;
-
 /**
  * Description of Login
  *
@@ -9,7 +8,13 @@ namespace App\adms\Controllers;
  */
 class Login
 {
+    private $dados;
+    
     public function access() {
-        echo "Página de login<br>";
+        
+        $this->dados = [];
+        
+        $carregarView = new \Core\ConfigView("adms/Views/login/access", $this->dados);
+        $carregarView->renderizar();
     }
 }
