@@ -13,6 +13,8 @@ class CarregarPageAdm
     private string $urlMetodo;
     private string $urlParametro;
     private string $classe;
+    private array $pagePublica;
+    private array $pageRestrita;
 
     public function carregarPg($urlController = null, $urlMetodo = null, $urlParametro = null)
     {
@@ -20,6 +22,7 @@ class CarregarPageAdm
         $this->urlMetodo = $urlMetodo;
         $this->urlParametro = $urlParametro;
 
+        $this->pagePublica();
         $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
         if (class_exists($this->classe)) {
             $this->carregarMetodo();
@@ -42,6 +45,39 @@ class CarregarPageAdm
         }
     }
 
+    private function pagePublica()
+    {
+        $this->pagePublica = ['Login'];
+        if (in_array($this->urlController, $this->pagePublica)) {
+            $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
+        } else {
+            $this->pageRestrita();
+        }
+    }
+    private function pageRestrita()
+    {
+        // Recebe o controller no Array
+        $this->pagePublica = ['Dashboard'];
+        if (in_array($this->urlController,  $this->pagePublica)) {
+            $this->verificaLogin();
+        } else {
+            $_SESSION['msg'] = "Erro: Usuario não encontrado! <br><br>";
+            $urlDestino = URLADM . "login/index";
+            header("Location: $urlDestino");
+        }
+    }
+
+    private function verificaLogin()
+    {
+        if (isset($_SESSION['user_id']) and isset($_SESSION['user_name']) and isset($_SESSION['user_email'])) {
+            $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
+
+        } else {
+            $_SESSION['msg'] = "Erro: Para acessar a página realize o login!! <br><br>";
+            $urlDestino = URLADM . "login/index";
+            header("Location: $urlDestino");
+        }
+    }
     private function slugController($slugController)
     {
         //Converter para minusculo

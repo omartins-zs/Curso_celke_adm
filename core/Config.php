@@ -15,7 +15,7 @@ abstract class Config
         define('URLADM', 'http://localhost/celke/adm/');
 
         define('CONTROLLER', 'Login');
-        define('METODO', 'access');
+        define('METODO', 'index');
         define('CONTROLLERERRO', 'Erro');
 
         // Credenciais de Acesso do Banco de dados
