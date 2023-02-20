@@ -14,6 +14,7 @@ class Dashboard
 
     public function index()
     {
-        echo "Bem vindo ao Dashboard ". $_SESSION['user_name'] . "<br>";
+        $carregarView = new \Core\ConfigView("adms/Views/dashboard/home");
+        $carregarView->renderizar();
     }
 }
