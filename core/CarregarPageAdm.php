@@ -47,7 +47,7 @@ class CarregarPageAdm
 
     private function pagePublica()
     {
-        $this->pagePublica = ['Login','Sair'];
+        $this->pagePublica = ['Login', 'Sair', 'NewUser'];
         if (in_array($this->urlController, $this->pagePublica)) {
             $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
         } else {
@@ -71,7 +71,6 @@ class CarregarPageAdm
     {
         if (isset($_SESSION['user_id']) and isset($_SESSION['user_name']) and isset($_SESSION['user_email'])) {
             $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
-
         } else {
             $_SESSION['msg'] = "Erro: Para acessar a página realize o login!! <br><br>";
             $urlDestino = URLADM . "login/index";
