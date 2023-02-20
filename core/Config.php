@@ -17,6 +17,13 @@ abstract class Config
         define('METODO', 'access');
         define('CONTROLLERERRO', 'Erro');
 
+        //Credencias de acesso ao Banco de dados
+        define('HOST', 'localhost');
+        define('USER', 'root');
+        define('PASS', '');
+        define('DBNAME', 'celke');
+        define('PORT', 3308);
+        
         define('EMAILADM', 'gabrielmartinsdev@gmail.com');
     }
 }
