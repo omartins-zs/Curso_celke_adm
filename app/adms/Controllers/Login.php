@@ -20,7 +20,8 @@ class Login
             $valLogin = new \App\adms\Models\AdmsLogin();
             $valLogin->login($this->dadosForm);
             if ($valLogin->getResultado()) {
-                echo "redirecionar o usuario para ADM<br>";
+                $urlDestino = URLADM . "dashboard/index";
+                header("Location: $urlDestino");
             } else {
                 $this->dados['form'] = $this->dadosForm;
             }

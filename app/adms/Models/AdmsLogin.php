@@ -47,6 +47,11 @@ class AdmsLogin extends helper\AdmsConn
     private function validarSenha()
     {
         if (password_verify($this->dados['password'], $this->resultadoBd['password'])) {
+            $_SESSION['user_id'] = $this->resultadoBd['id'];
+            $_SESSION['user_name'] = $this->resultadoBd['name'];
+            $_SESSION['user_nickname'] = $this->resultadoBd['nickname'];
+            $_SESSION['user_email'] = $this->resultadoBd['email'];
+            $_SESSION['user_image'] = $this->resultadoBd['image'];
             $this->resultado = true;
         } else {
             $_SESSION['msg'] = "Erro: Usuario ou senha incorreta! <br><br>";
