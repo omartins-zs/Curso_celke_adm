@@ -25,7 +25,7 @@ class AdmsNewUser extends helper\AdmsConn
     {
         $this->dados = $dados;
         var_dump($this->dados);
-        
+
         $this->dados['password'] = password_hash($this->dados['password'], PASSWORD_DEFAULT);
         $this->conn = $this->connect();
 
@@ -38,7 +38,7 @@ class AdmsNewUser extends helper\AdmsConn
 
         $add_new_user->execute();
         if ($add_new_user->rowCount()) {
-            $_SESSION['msg'] = "Erro: Usuário cadastrado com sucesso!";
+            $_SESSION['msg'] = "Usuário cadastrado com sucesso!";
             $this->resultado = true;
         } else {
             $_SESSION['msg'] = "Erro: Usuário não cadastrado com sucesso!";

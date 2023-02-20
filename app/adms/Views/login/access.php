@@ -2,8 +2,10 @@
 if (isset($this->dados['form'])) {
     $valorForm = $this->dados['form'];
 }
+//Criptografar a senha
+//echo password_hash(123456, PASSWORD_DEFAULT);
 ?>
-<h1>Novo Usuario</h1>
+<h1>Área Restrita</h1>
 
 <?php 
 if(isset($_SESSION['msg'])) {

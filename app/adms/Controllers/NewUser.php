@@ -19,7 +19,7 @@ class NewUser
             $createNewUser = new \App\adms\Models\AdmsNewUser();
             $createNewUser->create($this->dadosForm);
             if ($createNewUser->getResultado()) {
-                $urlDestino = URLADM . "dashboard/index";
+                $urlDestino = URLADM . "login/index";
                 header("Location: $urlDestino");
             } else {
                 $this->dados['form'] = $this->dadosForm;
