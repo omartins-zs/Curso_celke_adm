@@ -14,6 +14,6 @@ class Dashboard
 
     public function index()
     {
-        echo "Bem vindo ao Dashboard<br>";
+        echo "Bem vindo ao Dashboard ". $_SESSION['user_name'] . "<br>";
     }
 }

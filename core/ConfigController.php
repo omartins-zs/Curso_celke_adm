@@ -15,7 +15,7 @@ class ConfigController extends Config
     private array $urlConjunto;
     private string $urlController;
     private string $urlMetodo;
-    private string $urlParamentro;
+    private string $urlParametro;
     private string $classe;
     private string $slugController;
     private string $slugMetodo;
@@ -46,20 +46,20 @@ class ConfigController extends Config
             }
 
             if (isset($this->urlConjunto[2])) {
-                $this->urlParamentro = $this->urlConjunto[2];
+                $this->urlParametro = $this->urlConjunto[2];
             } else {
-                $this->urlParamentro = "";
+                $this->urlParametro = "";
             }
         } else {
             echo "Criar a página default<br>";
             $this->urlController = $this->slugController(CONTROLLER);
             $this->urlMetodo = $this->slugMetodo(METODO);
-            $this->urlParamentro = "";
+            $this->urlParametro = "";
         }
 
         echo "Controller: {$this->urlController} <br>";
         echo "Método: {$this->urlMetodo} <br>";
-        echo "Paramentro: {$this->urlParamentro} <br>";
+        echo "Paramentro: {$this->urlParametro} <br>";
     }
 
     private function slugController($slugController)
@@ -102,8 +102,7 @@ class ConfigController extends Config
 
     public function carregar()
     {
-        $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
-        $classCarregar = new $this->classe();
-        $classCarregar->{$this->urlMetodo}();
+        $carregarPageAdm = new \Core\CarregarPageAdm();
+        $carregarPageAdm->carregarPg($this->urlController, $this->urlMetodo, $this->urlParametro);
     }
 }
