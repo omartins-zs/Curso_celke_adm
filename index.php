@@ -1,25 +1,12 @@
 <?php
+// Inicia a sessão
 session_start();
+// Limpa o Buffer de saida (Evita erros ao redirecionar)
 ob_start();
-?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
+require './vendor/autoload.php';
 
-<head>
-    <meta charset="UTF-8">
-    <title>Celke</title>
-</head>
+use Core\ConfigController as Home;
 
-<body>
-    <?php
-    require './vendor/autoload.php';
-
-    use Core\ConfigController as Home;
-
-    $url = new Home();
-    $url->carregar();
-    ?>
-</body>
-
-</html>
+$url = new Home();
+$url->carregar();

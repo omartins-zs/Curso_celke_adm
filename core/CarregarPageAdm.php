@@ -47,7 +47,7 @@ class CarregarPageAdm
 
     private function pagePublica()
     {
-        $this->pagePublica = ['Login'];
+        $this->pagePublica = ['Login','Sair'];
         if (in_array($this->urlController, $this->pagePublica)) {
             $this->classe = "\\App\\adms\\Controllers\\" . $this->urlController;
         } else {
