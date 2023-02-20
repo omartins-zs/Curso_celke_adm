@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 /**
  * Description of Config
  *
@@ -17,12 +18,12 @@ abstract class Config
         define('METODO', 'access');
         define('CONTROLLERERRO', 'Erro');
 
-        //Credencias de acesso ao Banco de dados
+        // Credenciais de Acesso do Banco de dados
         define('HOST', 'localhost');
         define('USER', 'root');
         define('PASS', '');
         define('DBNAME', 'celke');
-        define('PORT', 3308);
+        // define('PORT', 3308);
         
         define('EMAILADM', 'gabrielmartinsdev@gmail.com');
     }

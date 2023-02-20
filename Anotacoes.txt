@@ -1,6 +1,9 @@
 Comandos Usados
 
 
+Login: cesar@celke.com.br
+Senha: 123456
+
 composer update 
 
 composer dumpautoload

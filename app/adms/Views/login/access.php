@@ -6,6 +6,13 @@ if (isset($this->dados['form'])) {
 // echo password_hash(123456, PASSWORD_DEFAULT);
 ?>
 <h1>Área Restrita</h1>
+
+<?php 
+if(isset($_SESSION['msg'])) {
+    echo $_SESSION['msg'];
+    unset ($_SESSION['msg']);
+}
+?>
 <form method="POST" action="">
     <label>Usuário</label>
     <input name="user" type="text" id="user" placeholder="Digite o usuário" value="<?php
