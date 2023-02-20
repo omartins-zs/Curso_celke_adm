@@ -7,13 +7,15 @@ namespace App\adms\Models;
  *
  * @author Gabriel Matheus
  */
-class AdmsLogin
+class AdmsLogin extends helper\AdmsConn
 {
     private array $dados;
+    private object $conn;
 
-
-    public function login(array $dados = null) {
+    public function login(array $dados = null)
+    {
         $this->dados = $dados;
         var_dump($this->dados);
+        $this->conn = $this->connect();
     }
 }

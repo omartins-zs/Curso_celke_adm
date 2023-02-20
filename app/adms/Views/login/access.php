@@ -3,7 +3,7 @@ if (isset($this->dados['form'])) {
     $valorForm = $this->dados['form'];
 }
 //Criptografar a senha
-echo password_hash(123456, PASSWORD_DEFAULT);
+// echo password_hash(123456, PASSWORD_DEFAULT);
 ?>
 <h1>Área Restrita</h1>
 <form method="POST" action="">
