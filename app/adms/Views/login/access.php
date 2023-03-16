@@ -13,7 +13,8 @@ if(isset($_SESSION['msg'])) {
     unset ($_SESSION['msg']);
 }
 ?>
-<form method="POST" action="">
+<span class="msg"></span>
+<form method="POST" id="sendLogin" action="">
     <label>Usuário</label>
     <input name="user" type="text" id="user" placeholder="Digite o usuário" value="<?php
     if (isset($valorForm['user'])) {

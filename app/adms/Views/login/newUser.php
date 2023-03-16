@@ -10,7 +10,8 @@ if(isset($_SESSION['msg'])) {
     unset ($_SESSION['msg']);
 }
 ?>
-<form method="POST" action="">
+<span class="msg"></span>
+<form method="POST" id="newUser" action="">
     <label>Nome</label>
     <input name="name" type="text" id="name" placeholder="Digite o seu nome" value="<?php
     if (isset($valorForm['name'])) {
