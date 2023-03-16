@@ -24,22 +24,27 @@ class AdmsNewUser extends helper\AdmsConn
     public function create(array $dados = null)
     {
         $this->dados = $dados;
-        var_dump($this->dados);
+        $valCampoVazio =         new \App\adms\Models\helper\AdmsValCampoVazio();
+        $valCampoVazio->validarDados($this->dados);
+        
+        if ($valCampoVazio->getResultado()) {
 
-        $this->dados['password'] = password_hash($this->dados['password'], PASSWORD_DEFAULT);
-        $this->conn = $this->connect();
+            $this->dados['password'] = password_hash($this->dados['password'], PASSWORD_DEFAULT);
+            $this->conn = $this->connect();
+            $query_new_user = "INSERT INTO adms_users (name, email, user, password, created) VALUES ( :name, :email, :user, :password, NOW())";
+            $add_new_user = $this->conn->prepare($query_new_user);
+            $add_new_user->bindParam(':name', $this->dados['name']);
+            $add_new_user->bindParam(':email', $this->dados['email']);
+            $add_new_user->bindParam(':user', $this->dados['email']);
+            $add_new_user->bindParam(':password', $this->dados['password']);
 
-        $query_new_user = "INSERT INTO adms_users (name, email, user, password, created) VALUES ( :name, :email, :user, :password, NOW())";
-        $add_new_user = $this->conn->prepare($query_new_user);
-        $add_new_user->bindParam(':name', $this->dados['name']);
-        $add_new_user->bindParam(':email', $this->dados['email']);
-        $add_new_user->bindParam(':user', $this->dados['email']);
-        $add_new_user->bindParam(':password', $this->dados['password']);
-
-        $add_new_user->execute();
-        if ($add_new_user->rowCount()) {
-            $_SESSION['msg'] = "Usuário cadastrado com sucesso!";
-            $this->resultado = true;
+            $add_new_user->execute();
+            if ($add_new_user->rowCount()) {
+                $_SESSION['msg'] = "Usuário cadastrado com sucesso!";
+                $this->resultado = true;
+            } else {
+                $this->resultado = false;
+            }
         } else {
             $_SESSION['msg'] = "Erro: Usuário não cadastrado com sucesso!";
             $this->resultado = false;
