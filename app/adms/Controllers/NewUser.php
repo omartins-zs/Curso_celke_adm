@@ -3,7 +3,7 @@
 namespace App\adms\Controllers;
 
 /**
- * Description of Login
+ * Description of NewUser
  *
  * @author Gabriel Matheus
  */
