@@ -16,6 +16,7 @@ class NewUser
     {
         $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (!empty($this->dadosForm['SendNewUser'])) {
+            unset($this->dadosForm['SendNewUser']);
             $createNewUser = new \App\adms\Models\AdmsNewUser();
             $createNewUser->create($this->dadosForm);
             if ($createNewUser->getResultado()) {
