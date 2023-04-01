@@ -16,6 +16,12 @@ class CarregarPageAdm
     private array $pagePublica;
     private array $pageRestrita;
 
+    /**
+     * 
+     * @param string $urlController Recebe da URL o nome da controller
+     * @param string $urlMetodo Recebe da URL o método
+     * @param string $urlParamentro Recebe da URL o parâmetro
+     */
     public function carregarPg($urlController = null, $urlMetodo = null, $urlParametro = null)
     {
         $this->urlController = $urlController;

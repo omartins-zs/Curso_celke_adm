@@ -10,8 +10,9 @@ namespace Core;
 
 class ConfigController extends Config
 {
-
+    /** @var string $url Recebe a URL do .htaccess */
     private string $url;
+    /** @var array $urlConjunto Recebe a URL convertida para array */
     private array $urlConjunto;
     private string $urlController;
     private string $urlMetodo;
@@ -90,7 +91,9 @@ class ConfigController extends Config
 
         return $this->urlLimpa;
     }
-
+    /**
+     * @method carregar Instanciar a classe e o método responsável em validar e carregar as páginas
+     */
     public function carregar()
     {
         $carregarPageAdm = new \Core\CarregarPageAdm();
