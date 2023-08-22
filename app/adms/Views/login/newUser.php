@@ -27,7 +27,7 @@ if(isset($_SESSION['msg'])) {
     ?>"><br><br>
 
     <label>Senha</label>
-    <input name="password" type="password" id="password" placeholder="Digite a senha"><br><br>
+    <input name="password" type="password" id="password" placeholder="Digite a senha" onkeyup="passwordStrenght()"><br><br>
 
     <input name="SendNewUser" type="submit" value="Cadastrar">
 </form>
