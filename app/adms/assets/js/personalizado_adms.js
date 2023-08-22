@@ -1,13 +1,24 @@
 $(document).ready(function () {
   $("#newUser").on("submit", function () {
+    var password = $("#password").val();
     if ($("#name").val() === "") {
       $(".msg").html("<p>Erro: Necessário preencher o campo nome!</p>");
       return false;
     } else if ($("#email").val() === "") {
       $(".msg").html("<p>Erro: Necessário preencher o campo e-mail!</p>");
       return false;
-    } else if ($("#password").val() === "") {
+    } else if (password === "") {
       $(".msg").html("<p>Erro: Necessário preencher o campo senha!</p>");
+      return false;
+    } else if (password.length < 6 || password.match(/([1-9]+)\1{1,}/)) {
+      $(".msg").html(
+        "<p>Erro: Senha muito fraca, não deve ter número repetido!</p>"
+      );
+      return false;
+    } else if (password.length < 6 || !password.match(/[A-Za-z]/)) {
+      $(".msg").html(
+        "<p>Erro: Senha muito fraca, deve ter pelo menos uma letra!</p>"
+      );
       return false;
     }
   });
@@ -47,7 +58,6 @@ function passwordStrength() {
     strength += 25;
   }
 
-  //  Abaixa o nivel com numeros sequencias pode comentar se quiser
   if (password.match(/([1-9]+)\1{1,}/)) {
     strength += -25;
   }
@@ -55,6 +65,7 @@ function passwordStrength() {
   console.log(strength);
   viewStrength(strength);
 }
+
 function viewStrength(strength) {
   /*Imprimir a força da senha*/
 
