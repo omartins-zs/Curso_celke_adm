@@ -47,10 +47,28 @@ function passwordStrength() {
     strength += 25;
   }
 
+  //  Abaixa o nivel com numeros sequencias pode comentar se quiser
   if (password.match(/([1-9]+)\1{1,}/)) {
     strength += -25;
   }
 
   console.log(strength);
   viewStrength(strength);
+}
+function viewStrength(strength) {
+  /*Imprimir a força da senha*/
+
+  if (strength < 30) {
+    document.getElementById("msgViewStrength").innerHTML =
+      "<p style='color: #ff0000;'>Senha Fraca</p>";
+  } else if (strength >= 30 && strength < 50) {
+    document.getElementById("msgViewStrength").innerHTML =
+      "<p style='color: #ff8c00;'>Senha Média</p>";
+  } else if (strength >= 50 && strength < 70) {
+    document.getElementById("msgViewStrength").innerHTML =
+      "<p style='color: #7cfc00;'>Senha Boa</p>";
+  } else if (strength >= 70 && strength < 100) {
+    document.getElementById("msgViewStrength").innerHTML =
+      "<p style='color: #008000;'>Senha Forte</p>";
+  }
 }
