@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $("#sendLogin").on("submit", function () {
-    if ($("#user").val() === "") {
+    if ($("#username").val() === "") {
       $(".msg").html("<p>Erro: Necessário preencher o campo usuário!</p>");
       return false;
     } else if ($("#password").val() === "") {

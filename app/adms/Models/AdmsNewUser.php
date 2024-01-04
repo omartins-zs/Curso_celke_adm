@@ -53,7 +53,7 @@ class AdmsNewUser
     private function add()
     {
         $this->dados['password'] = password_hash($this->dados['password'], PASSWORD_DEFAULT);
-        $this->dados['user'] = $this->dados['email'];
+        $this->dados['username'] = $this->dados['email'];
         $this->dados['created'] = date("Y-m-d H:i:s");
         $createUser = new \App\adms\Models\helper\AdmsCreate();
         $createUser->exeCreate("adms_users", $this->dados);

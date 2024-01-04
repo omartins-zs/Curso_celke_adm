@@ -7,7 +7,7 @@ use PDO;
 /**
  * Description of AdmsRead
  *
- * @author Celke
+ * @author Gabriel Matheus
  */
 class AdmsRead extends AdmsConn
 {

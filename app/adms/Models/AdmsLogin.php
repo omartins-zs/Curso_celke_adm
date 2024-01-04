@@ -24,37 +24,38 @@ class AdmsLogin extends helper\AdmsConn
     public function login(array $dados = null)
     {
         $this->dados = $dados;
-        var_dump($this->dados);
-        $this->conn = $this->connect();
 
-        $query_val_login = "SELECT id,name,nickname,email,password,image 
-        FROM adms_users
-        WHERE user = :user
-        LIMIT 1";
+        $viewUser = new \App\adms\Models\helper\AdmsRead();
+        //$viewUser->exeRead("adms_users", "WHERE user =:user LIMIT :limit", "user={$this->dados['user']}&limit=1");
+        $viewUser->fullRead(
+            "SELECT id, name, nickname, email, password, image
+                FROM adms_users
+                WHERE username =:username OR
+                email =:email
+                LIMIT :limit",
+            "username={$this->dados['username']}&email={$this->dados['username']}&limit=1"
+        );
 
-        $result_val_login = $this->conn->prepare($query_val_login);
-        $result_val_login->bindParam(':user', $this->dados['user'], PDO::PARAM_STR);
-        $result_val_login->execute();
-        $this->resultadoBd = $result_val_login->fetch();
-        var_dump($this->resultadoBd);
+        $this->resultadoBd = $viewUser->getResult();
         if ($this->resultadoBd) {
             $this->validarSenha();
         } else {
-            $_SESSION['msg'] = "Erro: Usuario não encontrado! <br><br>";
+            $_SESSION['msg'] = "Erro: Usuário não encontrado!<br><br>";
             $this->resultado = false;
         }
     }
+
     private function validarSenha()
     {
-        if (password_verify($this->dados['password'], $this->resultadoBd['password'])) {
-            $_SESSION['user_id'] = $this->resultadoBd['id'];
-            $_SESSION['user_name'] = $this->resultadoBd['name'];
-            $_SESSION['user_nickname'] = $this->resultadoBd['nickname'];
-            $_SESSION['user_email'] = $this->resultadoBd['email'];
-            $_SESSION['user_image'] = $this->resultadoBd['image'];
+        if (password_verify($this->dados['password'], $this->resultadoBd[0]['password'])) {
+            $_SESSION['user_id'] = $this->resultadoBd[0]['id'];
+            $_SESSION['user_name'] = $this->resultadoBd[0]['name'];
+            $_SESSION['user_nickname'] = $this->resultadoBd[0]['nickname'];
+            $_SESSION['user_image'] = $this->resultadoBd[0]['image'];
+            $_SESSION['user_email'] = $this->resultadoBd[0]['email'];
             $this->resultado = true;
         } else {
-            $_SESSION['msg'] = "Erro: Usuario ou senha incorreta! <br><br>";
+            $_SESSION['msg'] = "Erro: Usuário ou senha incorreta! <br><br>";
             $this->resultado = false;
         }
     }
