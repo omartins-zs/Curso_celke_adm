@@ -38,10 +38,13 @@ class AdmsNewUser
         $valEmailSingle = new \App\adms\Models\helper\AdmsValEmailSingle();
         $valEmailSingle->validarEmailSingle($this->dados['email']);
 
-        if ($valEmail->getResultado() and $valEmailSingle->getResultado()) {
-            $_SESSION['msg'] = "Usuário deve ser cadastrado!";
-            $this->resultado = false;
-            //$this->add();
+        $valPassword = new \App\adms\Models\helper\AdmsValPassword();
+        $valPassword->validarPassword($this->dados['password']);
+
+        if ($valEmail->getResultado() and $valEmailSingle->getResultado() and $valPassword->getResultado()) {
+            //$_SESSION['msg'] = "Usuário deve ser cadastrado!";
+            //$this->resultado = false;
+            $this->add();
         } else {
             $this->resultado = false;
         }
