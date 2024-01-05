@@ -3,7 +3,7 @@
 namespace App\adms\Controllers;
 
 /**
- * Description of Login
+ * Description of Sair
  *
  * @author Gabriel Matheus
  */
