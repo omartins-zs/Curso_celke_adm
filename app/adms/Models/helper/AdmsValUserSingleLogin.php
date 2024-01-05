@@ -10,7 +10,7 @@ namespace App\adms\Models\helper;
 class AdmsValUserSingleLogin
 {
 
-    private string $username;
+    private string $userName;
     private bool $resultado;
     private $resultadoBd;
 
@@ -24,7 +24,7 @@ class AdmsValUserSingleLogin
         $this->userName = $username;
 
         $valUserSingleLogin = new \App\adms\Models\helper\AdmsRead();
-        $valUserSingleLogin->fullRead("SELECT id FROM adms_users WHERE username =:username AND id <>:id LIMIT :limit", "username={$this->userName}&id={$this->id}&limit=1");
+        $valUserSingleLogin->fullRead("SELECT id FROM adms_users WHERE username =:username LIMIT :limit", "username={$this->userName}&limit=1");
 
         $this->resultadoBd = $valUserSingleLogin->getResult();
         if (!$this->resultadoBd) {
