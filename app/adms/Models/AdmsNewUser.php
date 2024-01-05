@@ -12,6 +12,7 @@ class AdmsNewUser
 
     private array $dados;
     private bool $resultado;
+    private string $fromEmail;
 
     function getResultado()
     {
@@ -62,11 +63,26 @@ class AdmsNewUser
         $createUser->exeCreate("adms_users", $this->dados);
 
         if ($createUser->getResult()) {
-            $_SESSION['msg'] = "Erro: Usuário cadastrado com sucesso!";
-            $this->resultado = true;
+            //$_SESSION['msg'] = "Usuário cadastrado com sucesso!";
+            //$this->resultado = true;
+            $this->sendEmail();
         } else {
             $_SESSION['msg'] = "Erro: Usuário não cadastrado com sucesso!";
             $this->resultado = false;
+        }
+    }
+
+    private function sendEmail()
+    {
+        $sendEmail = new \App\adms\Models\helper\AdmsSendEmail();
+        $sendEmail->sendEmail();
+        if ($sendEmail->getResultado()) {
+            $_SESSION['msg'] = "Usuário cadastrado com sucesso. Acesse a sua caixa de e-mail para confimar o e-mail!";
+            $this->resultado = true;
+        } else {
+            $this->fromEmail = $sendEmail->getFromEmail();
+            $_SESSION['msg'] = "Usuário cadastrado com sucesso. Houve erro ao enviar o e-mail de confirmação, entre em contado com " . $this->fromEmail . " para mais informações!";
+            $this->resultado = true;
         }
     }
 }
