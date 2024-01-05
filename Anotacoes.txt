@@ -49,3 +49,8 @@ Commands:
 `search`: Procura por pacotes
 `self`-update ou selfupdate: Atualiza o arquivo
 
+https://github.com/PHPMailer/PHPMailer
+
+https://getcomposer.org/
+
+https://mailtrap.io/home
