@@ -16,9 +16,9 @@ if(isset($_SESSION['msg'])) {
 <span class="msg"></span>
 <form method="POST" id="sendLogin" action="">
     <label>Usuário</label>
-    <input name="user" type="text" id="user" placeholder="Digite o usuário" value="<?php
-    if (isset($valorForm['user'])) {
-        echo $valorForm['user'];
+    <input name="username" type="text" id="username" placeholder="Digite o usuário ou e-mail" value="<?php
+    if (isset($valorForm['username'])) {
+        echo $valorForm['username'];
     }
     ?>"><br><br>
 
@@ -30,3 +30,6 @@ if(isset($_SESSION['msg'])) {
 
 
 <p><a href="<?php echo URLADM; ?>new-user/index">Cadastrar Usuario</a></p>
+
+Usuário: cesar@celke.com.br<br>
+Senha: 123456a
