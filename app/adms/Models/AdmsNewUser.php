@@ -40,8 +40,11 @@ class AdmsNewUser
 
         $valPassword = new \App\adms\Models\helper\AdmsValPassword();
         $valPassword->validarPassword($this->dados['password']);
+        
+        $valUserSingleLogin = new \App\adms\Models\helper\AdmsValUserSingleLogin();
+        $valUserSingleLogin->validarUserSingleLogin($this->dados['email']);
 
-        if ($valEmail->getResultado() and $valEmailSingle->getResultado() and $valPassword->getResultado()) {
+        if ($valEmail->getResultado() and $valEmailSingle->getResultado() and $valPassword->getResultado() and $valUserSingleLogin->getResultado()) {
             //$_SESSION['msg'] = "Usuário deve ser cadastrado!";
             //$this->resultado = false;
             $this->add();
