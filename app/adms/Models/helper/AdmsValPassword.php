@@ -5,7 +5,7 @@ namespace App\adms\Models\helper;
 /**
  * Description of AdmsValPassword
  *
- * @author Celke
+ * @author Gabriel Matheus
  */
 class AdmsValPassword
 {
