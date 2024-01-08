@@ -60,6 +60,8 @@ class AdmsNewUser
     {
         $this->dados['password'] = password_hash($this->dados['password'], PASSWORD_DEFAULT);
         $this->dados['username'] = $this->dados['email'];
+        $this->dados['conf_email'] = password_hash($this->dados['password'] . date("Y-m-d H:i:s"), PASSWORD_DEFAULT);
+
         $this->dados['created'] = date("Y-m-d H:i:s");
         $createUser = new \App\adms\Models\helper\AdmsCreate();
         $createUser->exeCreate("adms_users", $this->dados);
@@ -69,7 +71,7 @@ class AdmsNewUser
             //$this->resultado = true;
             $this->sendEmail();
         } else {
-            $_SESSION['msg'] = "Erro: Usuário não cadastrado com sucesso!";
+            $_SESSION['msg'] = "Erro: Usuário não cadastrado com sucesso. Tente mais tarde!";
             $this->resultado = false;
         }
     }
@@ -98,28 +100,22 @@ class AdmsNewUser
         $this->emailData['toEmail'] = $this->dados['email'];
         $this->emailData['toName'] = $this->firstName;
         $this->emailData['subject'] = "Confirmar sua conta";
+        $url = URLADM . "conf-email/index?chave=" . $this->dados['conf_email'];
 
-        /*$this->emailData['contentHtml'] = "Prezado(a) {$this->firstName}<br><br>";
+        $this->emailData['contentHtml'] = "Prezado(a) {$this->firstName}<br><br>";
         $this->emailData['contentHtml'] .= "Agradecemos a sua solicitação de cadastramento em nosso site!<br><br>";
         $this->emailData['contentHtml'] .= "Para que possamos liberar o seu cadastro em nosso sistema, solicitamos a confirmação do e-mail clicanco no link abaixo: <br><br>";
-        $this->emailData['contentHtml'] .= "LINK<br><br>";
-        $this->emailData['contentHtml'] .= "Esta mensagem foi enviada a você pela empresa XXX.<br>Você está recebendo porque está cadastrado no banco de dados da empresa XXX. Nenhum e-mail enviado pela empresa XXX tem arquivos anexados ou solicita o preenchimento de senhas e informações cadastrais.<br><br>";   */
-
-
-        $this->emailData['contentHtml'] = "Falta só mais um passo...<br><br>";
-        $this->emailData['contentHtml'] .= "Oi, {$this->firstName}.<br><br>";
-        $this->emailData['contentHtml'] .= "Só falta mais um passo para você acessar o conteúdo completo da empresa XXX.<br><br>";
-        $this->emailData['contentHtml'] .= "Clique abaixo para confirmar seu e-mail.<br><br>";
-        $this->emailData['contentHtml'] .= "LINK<br><br>";
-        $this->emailData['contentHtml'] .= "Esta mensagem foi enviada a você pela empresa XXX. <br>Você está recebendo porque está cadastrado no banco de dados da empresa XXX. Nenhum e-mail enviado pela empresa XXX tem arquivos anexados ou solicita o preenchimento de senhas e informações cadastrais.<br><br>";
+        $this->emailData['contentHtml'] .= "<a href='" . $url . "'>" . $url . "</a><br><br>";
+        $this->emailData['contentHtml'] .= "Esta mensagem foi enviada a você pela empresa XXX.<br>Você está recebendo porque está cadastrado no banco de dados da empresa XXX. Nenhum e-mail enviado pela empresa XXX tem arquivos anexados ou solicita o preenchimento de senhas e informações cadastrais.<br><br>";
     }
 
     private function emailText()
     {
+        $url = URLADM . "conf-email/index?chave=" . $this->dados['conf_email'];
         $this->emailData['contentText'] = "Prezado(a) {$this->firstName}\n\n";
         $this->emailData['contentText'] .= "Agradecemos a sua solicitação de cadastramento em nosso site!\n\n";
-        $this->emailData['contentText'] .= "Para que possamos liberar o seu cadastro em nosso sistema, solicitamos a confirmação do e-mail clicanco no link abaixo: \n\n";
-        $this->emailData['contentText'] .= "LINK\n\n";
+        $this->emailData['contentText'] .= "Para que possamos liberar o seu cadastro em nosso sistema, solicitamos a confirmação do e-mail clicanco no link abaixo ou cole o link no navegador: \n\n";
+        $this->emailData['contentText'] .= $url . "\n\n";
         $this->emailData['contentText'] .= "Esta mensagem foi enviada a você pela empresa XXX.\nVocê está recebendo porque está cadastrado no banco de dados da empresa XXX. Nenhum e-mail enviado pela empresa XXX tem arquivos anexados ou solicita o preenchimento de senhas e informações cadastrais.\n\n";
     }
 }
