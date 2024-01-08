@@ -17,8 +17,10 @@ class AdmsSendEmail
 {
     private array $dados;
     private array $dadosInfoEmail;
+    private array $resultadoBd;
     private bool $resultado;
     private string $fromEmail;
+    private int $optionConfEmail;
 
     function getResultado(): bool
     {
@@ -30,15 +32,9 @@ class AdmsSendEmail
         return $this->fromEmail;
     }
 
-    public function sendEmail()
+    public function sendEmail($optionConfEmail)
     {
-        $this->dadosInfoEmail['host'] = "sandbox.smtp.mailtrap.io";
-        $this->dadosInfoEmail['fromEmail'] = "gabrielmartinsdev@gmail.com";
-        $this->fromEmail = $this->dadosInfoEmail['fromEmail'];
-        $this->dadosInfoEmail['fromName'] = "Gabriel Matheus";
-        $this->dadosInfoEmail['username'] = "ce91d1bb4f2385";
-        $this->dadosInfoEmail['password'] = "4cc7bcea90647a";
-        // $this->dadosInfoEmail['port'] =587;
+        $this->optionConfEmail = $optionConfEmail;
 
         $this->dados['toEmail'] = "jaquelinesensacao@gmail.com";
         $this->dados['toName'] = "Lucas Guimaraes";
@@ -46,7 +42,25 @@ class AdmsSendEmail
         $this->dados['contentHtml'] = "Olá <b>Lucas</b><br><p>Cadastro realizado com sucesso!</p>";
         $this->dados['contentText'] = "Olá Lucas \n\nCadastro realizado com sucesso!\n";
 
+        $this->infoPhpMailer();
         $this->sendEmailPhpMailer();
+    }
+
+    private function infoPhpMailer()
+    {
+        $confEmail = new \App\adms\Models\helper\AdmsRead();
+        $confEmail->fullRead("SELECT name, email, host, username, password, smtpsecure, port FROM adms_confs_emails WHERE id =:id LIMIT :limit", "id={$this->optionConfEmail}&limit=1");
+        $this->resultadoBd = $confEmail->getResult();
+        var_dump($this->resultadoBd);
+
+        $this->dadosInfoEmail['host'] = $this->resultadoBd[0]['host'];
+        $this->dadosInfoEmail['fromEmail'] = $this->resultadoBd[0]['email'];
+        $this->fromEmail = $this->dadosInfoEmail['fromEmail'];
+        $this->dadosInfoEmail['fromName'] = $this->resultadoBd[0]['name'];
+        $this->dadosInfoEmail['username'] = $this->resultadoBd[0]['username'];
+        $this->dadosInfoEmail['password'] = $this->resultadoBd[0]['password'];
+        $this->dadosInfoEmail['smtpsecure'] = $this->resultadoBd[0]['smtpsecure'];
+        $this->dadosInfoEmail['port'] = $this->resultadoBd[0]['port'];
     }
 
     public function sendEmailPhpMailer()
@@ -55,14 +69,14 @@ class AdmsSendEmail
         try {
             //Server settings
             $mail->CharSet = 'UTF-8';
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            //  $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = $this->dadosInfoEmail['host'];          //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             $mail->Username   = $this->dadosInfoEmail['username'];      //SMTP username
             $mail->Password   = $this->dadosInfoEmail['password'];      //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable implicit TLS encryption
-            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->SMTPSecure =  $this->dadosInfoEmail['smtpsecure'];         //Enable implicit TLS encryption
+            $mail->Port       = $this->dadosInfoEmail['port'];                                  //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
             $mail->setFrom($this->dadosInfoEmail['fromEmail'], $this->dadosInfoEmail['fromName']);

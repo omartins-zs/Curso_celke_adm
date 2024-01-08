@@ -41,7 +41,7 @@ class AdmsNewUser
 
         $valPassword = new \App\adms\Models\helper\AdmsValPassword();
         $valPassword->validarPassword($this->dados['password']);
-        
+
         $valUserSingleLogin = new \App\adms\Models\helper\AdmsValUserSingleLogin();
         $valUserSingleLogin->validarUserSingleLogin($this->dados['email']);
 
@@ -75,14 +75,14 @@ class AdmsNewUser
     private function sendEmail()
     {
         $sendEmail = new \App\adms\Models\helper\AdmsSendEmail();
-        $sendEmail->sendEmail();
+        $sendEmail->sendEmail(2);
         if ($sendEmail->getResultado()) {
             $_SESSION['msg'] = "Usuário cadastrado com sucesso. Acesse a sua caixa de e-mail para confimar o e-mail!";
-            $this->resultado = true;
+            $this->resultado = false;
         } else {
             $this->fromEmail = $sendEmail->getFromEmail();
             $_SESSION['msg'] = "Usuário cadastrado com sucesso. Houve erro ao enviar o e-mail de confirmação, entre em contado com " . $this->fromEmail . " para mais informações!";
-            $this->resultado = true;
+            $this->resultado = false;
         }
     }
 }
