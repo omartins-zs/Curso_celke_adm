@@ -32,15 +32,16 @@ class AdmsSendEmail
         return $this->fromEmail;
     }
 
-    public function sendEmail($optionConfEmail)
+    public function sendEmail($dados, $optionConfEmail)
     {
         $this->optionConfEmail = $optionConfEmail;
+        $this->dados = $dados;
 
-        $this->dados['toEmail'] = "jaquelinesensacao@gmail.com";
-        $this->dados['toName'] = "Lucas Guimaraes";
-        $this->dados['subject'] = "Confirmar E-mail";
-        $this->dados['contentHtml'] = "Olá <b>Lucas</b><br><p>Cadastro realizado com sucesso!</p>";
-        $this->dados['contentText'] = "Olá Lucas \n\nCadastro realizado com sucesso!\n";
+        /*$this->dados['toEmail'] = "cesar1@celke.com.br";
+        $this->dados['toName'] = "Cesar1";
+        $this->dados['subject'] = "Confirmar e-mail";
+        $this->dados['contentHtml'] = "Olá <b>Cesar</b><br><p>Cadastro realizado com sucesso!</p>";
+        $this->dados['contentText'] = "Olá Cesar \n\nCadastro realizado com sucesso!\n";*/
 
         $this->infoPhpMailer();
         $this->sendEmailPhpMailer();
