@@ -63,8 +63,8 @@ class CarregarPageAdm
     private function pageRestrita()
     {
         // Recebe o controller no Array
-        $this->pagePublica = ['Dashboard'];
-        if (in_array($this->urlController,  $this->pagePublica)) {
+        $this->pageRestrita = ['Dashboard'];
+        if (in_array($this->urlController,  $this->pageRestrita)) {
             $this->verificaLogin();
         } else {
             $_SESSION['msg'] = "Erro: Usuario não encontrado! <br><br>";
