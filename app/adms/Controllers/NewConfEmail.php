@@ -18,6 +18,7 @@ class NewConfEmail
 
         $this->dadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (!empty($this->dadosForm['NewConfEmail'])) {
+            unset($this->dadosForm['NewConfEmail']);
             $newConfEmail = new \App\adms\Models\AdmsNewConfEmail();
             $newConfEmail->newConfEmail($this->dadosForm);
             if ($newConfEmail->getResultado()) {

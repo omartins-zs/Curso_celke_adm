@@ -25,6 +25,17 @@ class AdmsNewConfEmail extends helper\AdmsConn
     {
         $this->dados = $dados;
 
+        $valCampoVazio = new \App\adms\Models\helper\AdmsValCampoVazio();
+        $valCampoVazio->validarDados($this->dados);
+        if ($valCampoVazio->getResultado()) {
+            $this->valUser();
+        } else {
+            $this->resultado = false;
+        }
+    }
+
+    private function valUser()
+    {
         $newConfEmail = new \App\adms\Models\helper\AdmsRead();
         $newConfEmail->fullRead(
             "SELECT id, name, email, conf_email
