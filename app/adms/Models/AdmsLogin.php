@@ -47,7 +47,7 @@ class AdmsLogin
     private function valEmailPerm()
     {
         if ($this->resultadoBd[0]['adms_sits_user_id'] == 3) {
-            $_SESSION['msg'] = "Erro: Necessário confirmar o e-mail!<br>";
+            $_SESSION['msg'] = "Erro: Necessário confirmar o e-mail, solicite novo e-mail <a href='" . URLADM . "new-conf-email/index'>clique aqui</a>!<br>";
             $this->resultado = false;
         } elseif ($this->resultadoBd[0]['adms_sits_user_id'] == 5) {
             $_SESSION['msg'] = "Erro: E-mail descadastrado, entre em contato com a empresa!<br>";
