@@ -84,11 +84,11 @@ class AdmsNewUser
         $sendEmail->sendEmail($this->emailData, 2);
         if ($sendEmail->getResultado()) {
             $_SESSION['msg'] = "Usuário cadastrado com sucesso. Acesse a sua caixa de e-mail para confimar o e-mail!";
-            $this->resultado = false;
+            $this->resultado = true;
         } else {
             $this->fromEmail = $sendEmail->getFromEmail();
             $_SESSION['msg'] = "Usuário cadastrado com sucesso. Houve erro ao enviar o e-mail de confirmação, entre em contado com " . $this->fromEmail . " para mais informações!";
-            $this->resultado = false;
+            $this->resultado = true;
         }
     }
 
