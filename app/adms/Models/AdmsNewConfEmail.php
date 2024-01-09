@@ -5,9 +5,9 @@ namespace App\adms\Models;
 /**
  * Description of AdmsNewConfEmail
  *
- * @author Celke
+ * @author Gabriel Matheus
  */
-class AdmsNewConfEmail extends helper\AdmsConn
+class AdmsNewConfEmail
 {
 
     private array $dados;
@@ -15,6 +15,7 @@ class AdmsNewConfEmail extends helper\AdmsConn
     private bool $resultado;
     private string $firstName;
     private array $emailData;
+    private array $saveData;
 
     function getResultado()
     {
@@ -62,16 +63,15 @@ class AdmsNewConfEmail extends helper\AdmsConn
     private function valConfEmail()
     {
         if (empty($this->resultadoBd[0]['conf_email']) or $this->resultadoBd[0]['conf_email'] == NULL) {
-            $conf_email = password_hash(date("Y-m-d H:i:s"), PASSWORD_DEFAULT);
 
-            $query_ativar_user = "UPDATE adms_users SET conf_email=:conf_email, modified = NOW() WHERE id=:id";
-            $ativar_user = $this->connect()->prepare($query_ativar_user);
-            $ativar_user->bindParam(':conf_email', $conf_email);
-            $ativar_user->bindParam(':id', $this->resultadoBd[0]['id']);
-            $ativar_user->execute();
+            $this->saveData['conf_email'] = password_hash(date("Y-m-d H:i:s"), PASSWORD_DEFAULT);
+            $this->saveData['modified'] = date("Y-m-d H:i:s");
 
-            if ($ativar_user->rowCount()) {
-                $this->resultadoBd[0]['conf_email'] = $conf_email;
+            $up_conf_email = new \App\adms\Models\helper\AdmsUpdate();
+            $up_conf_email->exeUpdate("adms_users", $this->saveData, "WHERE id=:id", "id={$this->resultadoBd[0]['id']}");
+
+            if ($up_conf_email->getResult()) {
+                $this->resultadoBd[0]['conf_email'] = $this->saveData['conf_email'];
                 return true;
             } else {
                 return false;
