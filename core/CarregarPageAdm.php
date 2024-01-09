@@ -60,14 +60,15 @@ class CarregarPageAdm
             $this->pageRestrita();
         }
     }
+
     private function pageRestrita()
     {
         // Recebe o controller no Array
-        $this->pageRestrita = ['Dashboard'];
-        if (in_array($this->urlController,  $this->pageRestrita)) {
+        $this->pageRestrita = ["Dashboard"];
+        if (in_array($this->urlController, $this->pageRestrita)) {
             $this->verificaLogin();
         } else {
-            $_SESSION['msg'] = "Erro: Usuario não encontrado! <br><br>";
+            $_SESSION['msg'] = "Erro: Página não encontrada!<br>";
             $urlDestino = URLADM . "login/index";
             header("Location: $urlDestino");
         }
