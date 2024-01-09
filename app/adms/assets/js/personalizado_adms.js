@@ -36,6 +36,15 @@ $(document).ready(function () {
   });
 });
 
+$(document).ready(function () {
+  $("#new_conf_email").on("submit", function () {
+    if ($("#email").val() === "") {
+      $(".msg").html("<p>Erro: Necessário preencher o campo e-mail!</p>");
+      return false;
+    }
+  });
+});
+
 function passwordStrength() {
   var password = document.getElementById("password").value;
   var strength = 0;
